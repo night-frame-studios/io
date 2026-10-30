@@ -1,0 +1,821 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Server Rules — Night Frame Studios</title>
+<meta name="description" content="Official server rules for Night Frame Studios. Twenty rules across Gameplay, Security, Conduct, Studio and Fair Play.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect x='4' y='4' width='24' height='24' rx='7' fill='none' stroke='white' stroke-width='2'/><rect x='11' y='11' width='10' height='10' rx='2' fill='white'/></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#000;
+  --bg2:#050505;
+  --card:#0a0a0a;
+  --border:#1a1a1a;
+  --text:#e8e8e8;
+  --muted:#8a8a8a;
+  --faint:#5c5c5c;
+  --white:#ffffff;
+  --silver:#c9c9c9;
+  --red:#ff4d4d;
+  --red-soft:#ff6b6b;
+  --red-border:rgba(255,77,77,0.35);
+  --red-bg:rgba(255,77,77,0.06);
+  --orange:#ffa94d;
+  --yellow:#ffd43b;
+  --radius:12px;
+  --max:880px;
+  --font:'Inter',system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  background:var(--bg);
+  color:var(--text);
+  font-family:var(--font);
+  line-height:1.6;
+  -webkit-font-smoothing:antialiased;
+  text-rendering:optimizeLegibility;
+  overflow-x:hidden;
+  min-height:100vh;
+}
+body::before{
+  content:"";
+  position:fixed;inset:0;z-index:0;pointer-events:none;
+  background:
+    radial-gradient(900px 420px at 50% -80px, rgba(255,255,255,0.07), transparent 70%),
+    radial-gradient(700px 500px at 85% 15%, rgba(255,255,255,0.025), transparent 70%),
+    radial-gradient(700px 500px at 10% 25%, rgba(255,255,255,0.025), transparent 70%);
+}
+::selection{background:#fff;color:#000}
+::-webkit-scrollbar{width:10px}
+::-webkit-scrollbar-track{background:#000}
+::-webkit-scrollbar-thumb{background:#222;border-radius:8px;border:2px solid #000}
+::-webkit-scrollbar-thumb:hover{background:#2e2e2e}
+a{color:inherit}
+button{font-family:inherit}
+:focus-visible{outline:2px solid rgba(255,255,255,0.6);outline-offset:2px;border-radius:6px}
+.progress-track{position:fixed;top:0;left:0;right:0;height:2px;background:transparent;z-index:200}
+.progress-bar{height:100%;width:0;background:linear-gradient(90deg,#ffffff,#8a8a8a);box-shadow:0 0 12px rgba(255,255,255,0.55);transition:width 0.1s linear}
+.nav{
+  position:sticky;top:0;z-index:100;
+  background:rgba(0,0,0,0.72);
+  -webkit-backdrop-filter:blur(18px) saturate(140%);
+  backdrop-filter:blur(18px) saturate(140%);
+  border-bottom:1px solid var(--border);
+}
+.nav-inner{max-width:1080px;margin:0 auto;padding:0 24px;height:66px;display:flex;align-items:center;justify-content:space-between;gap:16px;position:relative;z-index:1}
+.brand{display:flex;align-items:center;gap:12px;text-decoration:none;color:var(--text)}
+.brand-mark{width:30px;height:30px;border:1.5px solid #e8e8e8;border-radius:8px;position:relative;flex-shrink:0;display:flex;align-items:center;justify-content:center}
+.brand-mark-inner{width:12px;height:12px;border:1px solid rgba(232,232,232,0.45);border-radius:3px}
+.brand-text{font-size:13px;font-weight:800;letter-spacing:0.18em;white-space:nowrap}
+.brand-light{font-weight:400;color:var(--muted)}
+.nav-links{display:flex;gap:2px;align-items:center}
+.nav-links a{color:var(--muted);text-decoration:none;font-size:13px;font-weight:500;padding:8px 12px;border-radius:8px;transition:color 0.25s,background 0.25s;letter-spacing:0.01em}
+.nav-links a:hover{color:#fff;background:rgba(255,255,255,0.06)}
+.nav-right{display:flex;align-items:center;gap:12px}
+.nav-status{display:flex;align-items:center;gap:8px;font-size:10px;color:var(--muted);border:1px solid var(--border);padding:7px 12px;border-radius:999px;background:#080808;letter-spacing:0.1em;text-transform:uppercase;font-weight:700;white-space:nowrap}
+.status-dot{width:6px;height:6px;border-radius:50%;background:#fff;box-shadow:0 0 8px rgba(255,255,255,0.9);animation:pulseDot 2s ease-in-out infinite}
+@keyframes pulseDot{0%,100%{opacity:1}50%{opacity:0.35}}
+.menu-btn{display:none;background:transparent;border:1px solid var(--border);border-radius:9px;width:40px;height:40px;cursor:pointer;flex-direction:column;align-items:center;justify-content:center;gap:5px;transition:border-color 0.25s,background 0.25s}
+.menu-btn:hover{border-color:#2c2c2c;background:rgba(255,255,255,0.04)}
+.menu-btn span{display:block;width:16px;height:1.5px;background:#e8e8e8;border-radius:2px;transition:transform 0.3s,opacity 0.3s}
+.menu-btn.active span:nth-child(1){transform:translateY(6.5px) rotate(45deg)}
+.menu-btn.active span:nth-child(2){opacity:0}
+.menu-btn.active span:nth-child(3){transform:translateY(-6.5px) rotate(-45deg)}
+.mobile-menu{display:none;border-top:1px solid var(--border);padding:8px 24px 16px;background:rgba(0,0,0,0.96)}
+.mobile-menu.open{display:block}
+.mobile-menu a{display:flex;align-items:center;justify-content:space-between;padding:13px 4px;color:var(--muted);text-decoration:none;font-size:14px;font-weight:500;border-bottom:1px solid #111;transition:color 0.25s,padding-left 0.25s}
+.mobile-menu a:last-child{border-bottom:none}
+.mobile-menu a:hover{color:#fff;padding-left:8px}
+.mobile-menu a small{font-size:11px;color:#444;font-weight:700;letter-spacing:0.08em}
+main{position:relative;z-index:1}
+.container{max-width:var(--max);margin:0 auto;padding:0 24px}
+.hero{text-align:center;padding:88px 24px 28px;max-width:780px;margin:0 auto;position:relative}
+.hero-badge{display:inline-flex;align-items:center;gap:9px;font-size:11px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--silver);background:#0a0a0a;border:1px solid var(--border);padding:9px 18px;border-radius:999px;margin-bottom:26px}
+.pulse-dot{width:6px;height:6px;border-radius:50%;background:#fff;box-shadow:0 0 10px rgba(255,255,255,0.9);animation:pulseDot 2s ease-in-out infinite}
+.hero h1{font-size:clamp(48px,8vw,78px);font-weight:800;letter-spacing:-0.045em;line-height:0.95;margin:0 0 18px;color:#f5f5f5}
+.hero-sub{color:var(--muted);font-size:clamp(15px,2.2vw,17px);line-height:1.7;max-width:560px;margin:0 auto 30px}
+.hero-meta{display:flex;align-items:center;justify-content:center;gap:28px;flex-wrap:wrap}
+.hero-stat strong{display:block;font-size:22px;font-weight:800;color:#fff;line-height:1;font-variant-numeric:tabular-nums}
+.hero-stat span{display:block;font-size:10px;letter-spacing:0.14em;text-transform:uppercase;color:var(--faint);font-weight:700;margin-top:7px}
+.hero-divider{width:1px;height:36px;background:var(--border)}
+.warning-banner{margin:30px 0 24px;display:flex;gap:16px;align-items:flex-start;background:var(--red-bg);border:1px solid var(--red-border);border-radius:var(--radius);padding:18px 20px;position:relative;overflow:hidden}
+.warning-banner::after{content:"";position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(255,77,77,0.4),transparent)}
+.warning-icon{width:38px;height:38px;flex-shrink:0;border-radius:10px;background:rgba(255,77,77,0.12);border:1px solid rgba(255,77,77,0.25);display:flex;align-items:center;justify-content:center;color:var(--red-soft);font-weight:800;font-size:18px;line-height:1}
+.warning-banner strong{display:block;font-size:11px;letter-spacing:0.14em;text-transform:uppercase;color:var(--red-soft);margin-bottom:5px;font-weight:800}
+.warning-banner p{font-size:14px;line-height:1.65;color:#e8e8e8}
+.controls{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:20px;margin-bottom:20px}
+.search-row{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:16px}
+.search-box{flex:1;min-width:240px;position:relative;display:flex;align-items:center}
+.search-box svg{position:absolute;left:14px;width:16px;height:16px;stroke:#5c5c5c;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;pointer-events:none}
+.search-box input{width:100%;background:#050505;border:1px solid var(--border);border-radius:10px;padding:12px 46px 12px 42px;color:var(--text);font-family:inherit;font-size:14px;outline:none;transition:border-color 0.25s,box-shadow 0.25s}
+.search-box input:focus{border-color:#333;box-shadow:0 0 0 3px rgba(255,255,255,0.05)}
+.search-box input::placeholder{color:#525252}
+.search-box kbd{position:absolute;right:12px;font-family:inherit;font-size:11px;font-weight:600;color:var(--faint);border:1px solid var(--border);border-radius:6px;padding:2px 8px;background:#0a0a0a;line-height:1.5}
+.expand-actions{display:flex;gap:8px}
+.btn-ghost{background:transparent;border:1px solid var(--border);color:var(--muted);font-size:13px;font-weight:600;padding:0 16px;min-height:44px;border-radius:10px;cursor:pointer;transition:color 0.25s,border-color 0.25s,background 0.25s,box-shadow 0.25s;white-space:nowrap}
+.btn-ghost:hover{color:#fff;border-color:#2e2e2e;background:rgba(255,255,255,0.04);box-shadow:0 0 20px rgba(255,255,255,0.06)}
+.chips{display:flex;gap:8px;flex-wrap:wrap}
+.chip{display:inline-flex;align-items:center;gap:8px;background:transparent;border:1px solid var(--border);color:var(--muted);font-size:13px;font-weight:600;padding:8px 8px 8px 15px;border-radius:999px;cursor:pointer;transition:all 0.25s}
+.chip:hover{color:#fff;border-color:#2e2e2e;box-shadow:0 0 16px rgba(255,255,255,0.05)}
+.chip.active{background:#f5f5f5;color:#000;border-color:#f5f5f5;box-shadow:0 0 20px rgba(255,255,255,0.15)}
+.chip-count{font-size:11px;font-weight:800;background:#1a1a1a;color:#8a8a8a;padding:3px 9px;border-radius:999px;line-height:1.4;font-variant-numeric:tabular-nums}
+.chip.active .chip-count{background:rgba(0,0,0,0.12);color:#000}
+.results-meta{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:16px;padding-top:15px;border-top:1px solid #111;flex-wrap:wrap}
+#resultCount{font-size:12px;color:var(--faint);letter-spacing:0.03em;font-weight:500}
+#clearFilters{background:none;border:none;color:#fff;font-size:12px;font-weight:600;cursor:pointer;text-decoration:underline;text-underline-offset:4px;text-decoration-color:#333;transition:text-decoration-color 0.25s}
+#clearFilters:hover{text-decoration-color:#fff}
+.rules{display:flex;flex-direction:column;gap:12px;scroll-margin-top:90px}
+.rule-card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;transition:border-color 0.3s,box-shadow 0.3s,transform 0.3s}
+.rule-card:hover{border-color:#262626;box-shadow:0 0 0 1px rgba(255,255,255,0.03),0 8px 32px rgba(0,0,0,0.5),0 0 28px rgba(255,255,255,0.04);transform:translateY(-1px)}
+.rule-header{width:100%;background:none;border:none;padding:18px;display:flex;align-items:flex-start;gap:15px;cursor:pointer;text-align:left;color:inherit}
+.rule-num{flex-shrink:0;font-size:13px;font-weight:800;letter-spacing:0.06em;color:var(--muted);background:#111;border:1px solid #1e1e1e;border-radius:9px;min-width:46px;height:46px;display:flex;align-items:center;justify-content:center;font-variant-numeric:tabular-nums;transition:color 0.3s,border-color 0.3s,background 0.3s,box-shadow 0.3s}
+.rule-card.open .rule-num{color:#fff;border-color:#2a2a2a;background:#151515;box-shadow:0 0 16px rgba(255,255,255,0.06)}
+.rule-main{flex:1;min-width:0;display:flex;flex-direction:column;gap:10px;padding-top:2px}
+.rule-title-row{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.rule-title{font-size:16px;font-weight:700;color:#f0f0f0;letter-spacing:-0.01em;line-height:1.35}
+.rule-tags{display:flex;flex-wrap:wrap;gap:6px}
+.tag{font-size:10px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;padding:4px 10px;border-radius:999px;border:1px solid;line-height:1.4;white-space:nowrap}
+.tag-cat{color:#8a8a8a;border-color:#232323;background:rgba(255,255,255,0.02)}
+.tag-red{color:#ff6b6b;border-color:rgba(255,107,107,0.32);background:rgba(255,77,77,0.08)}
+.tag-orange{color:#ffa94d;border-color:rgba(255,169,77,0.3);background:rgba(255,169,77,0.08)}
+.tag-yellow{color:#ffd43b;border-color:rgba(255,212,59,0.28);background:rgba(255,212,59,0.07)}
+.tag-grey{color:#9a9a9a;border-color:rgba(255,255,255,0.14);background:rgba(255,255,255,0.04)}
+.new-badge{font-size:10px;font-weight:800;letter-spacing:0.1em;background:#fff;color:#000;padding:3px 9px;border-radius:999px;line-height:1.5;animation:newGlow 2.2s ease-in-out infinite}
+@keyframes newGlow{0%,100%{box-shadow:0 0 10px rgba(255,255,255,0.35)}50%{box-shadow:0 0 22px rgba(255,255,255,0.7)}}
+.chevron{flex-shrink:0;width:32px;height:32px;border-radius:8px;border:1px solid var(--border);background:#0d0d0d;display:flex;align-items:center;justify-content:center;margin-top:7px;transition:transform 0.4s cubic-bezier(0.4,0,0.2,1),background 0.3s,border-color 0.3s}
+.chevron svg{width:14px;height:14px;stroke:#8a8a8a;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;transition:stroke 0.3s}
+.rule-card.open .chevron{transform:rotate(180deg);background:#161616;border-color:#2a2a2a}
+.rule-card.open .chevron svg{stroke:#fff}
+.rule-body{display:grid;grid-template-rows:0fr;transition:grid-template-rows 0.45s cubic-bezier(0.4,0,0.2,1)}
+.rule-card.open .rule-body{grid-template-rows:1fr}
+.rule-body-inner{overflow:hidden;min-height:0}
+.rule-desc-wrap{padding:2px 18px 18px 79px}
+.rule-desc{font-size:14.5px;line-height:1.75;color:var(--muted)}
+.rule-meta{margin-top:14px;padding-top:12px;border-top:1px solid #141414;display:flex;align-items:center;gap:10px;font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:#4c4c4c;font-weight:700;flex-wrap:wrap}
+.dot-sep{width:3px;height:3px;border-radius:50%;background:#2a2a2a;flex-shrink:0}
+#emptyState{text-align:center;padding:52px 24px;border:1px dashed #232323;border-radius:var(--radius);background:#070707;margin-top:12px}
+#emptyState[hidden]{display:none}
+.empty-icon{width:52px;height:52px;margin:0 auto 18px;border-radius:14px;border:1px solid var(--border);background:#0a0a0a;display:flex;align-items:center;justify-content:center;color:#555;font-size:20px;font-weight:400}
+#emptyState h3{font-size:16px;font-weight:700;color:#e8e8e8;margin-bottom:8px;letter-spacing:-0.01em}
+#emptyState p{font-size:13.5px;color:var(--muted);max-width:340px;margin:0 auto 18px;line-height:1.6}
+#emptyClear{background:#f5f5f5;color:#000;border:1px solid #f5f5f5;font-size:13px;font-weight:700;padding:10px 22px;border-radius:999px;cursor:pointer;transition:box-shadow 0.25s,transform 0.25s}
+#emptyClear:hover{box-shadow:0 0 24px rgba(255,255,255,0.25);transform:translateY(-1px)}
+.final-notice{margin:28px 0 0;background:linear-gradient(180deg,#0c0c0c,#080808);border:1px solid #222;border-radius:var(--radius);padding:24px;display:flex;gap:16px;align-items:flex-start;position:relative;overflow:hidden}
+.final-notice::before{content:"";position:absolute;left:0;top:0;bottom:0;width:2px;background:linear-gradient(180deg,#fff,#555)}
+.final-icon{width:38px;height:38px;flex-shrink:0;border-radius:10px;background:rgba(255,255,255,0.05);border:1px solid #262626;display:flex;align-items:center;justify-content:center;color:#fff;font-size:15px;font-weight:700}
+.final-notice strong{display:block;font-size:11px;letter-spacing:0.14em;text-transform:uppercase;color:#fff;margin-bottom:5px;font-weight:800}
+.final-notice p{font-size:14px;line-height:1.65;color:var(--muted)}
+.final-notice p em{color:#e8e8e8;font-style:normal;font-weight:600}
+footer{margin-top:72px;border-top:1px solid var(--border);background:#030303;padding:44px 24px 52px;text-align:center;position:relative;z-index:1}
+.footer-inner{max-width:640px;margin:0 auto}
+.footer-mark{width:36px;height:36px;margin:0 auto 18px;border:1.5px solid #333;border-radius:10px;display:flex;align-items:center;justify-content:center}
+.footer-mark-inner{width:14px;height:14px;border:1px solid #444;border-radius:4px}
+.footer-brand{font-size:12px;font-weight:800;letter-spacing:0.22em;color:#fff;margin-bottom:12px}
+.footer-copy{font-size:13.5px;color:var(--muted)}
+.footer-note{margin-top:10px;font-size:13px;color:var(--faint);line-height:1.6}
+.footer-note strong{color:#a8a8a8;font-weight:600}
+.footer-line{width:40px;height:1px;background:#1f1f1f;margin:22px auto}
+.footer-small{font-size:11px;color:#3f3f3f;letter-spacing:0.06em;font-weight:500}
+#backToTop{position:fixed;bottom:24px;right:24px;width:48px;height:48px;border-radius:12px;background:rgba(10,10,10,0.88);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);border:1px solid #232323;color:#fff;font-size:18px;line-height:1;cursor:pointer;opacity:0;visibility:hidden;transform:translateY(12px);transition:opacity 0.3s,transform 0.3s,visibility 0.3s,background 0.3s,color 0.3s,border-color 0.3s,box-shadow 0.3s;z-index:90;display:flex;align-items:center;justify-content:center}
+#backToTop.show{opacity:1;visibility:visible;transform:translateY(0)}
+#backToTop:hover{background:#fff;color:#000;border-color:#fff;box-shadow:0 0 24px rgba(255,255,255,0.25)}
+.reveal{opacity:0;transform:translateY(24px);transition:opacity 0.7s ease,transform 0.7s cubic-bezier(0.16,1,0.3,1)}
+.reveal.visible{opacity:1;transform:none}
+@media (max-width:920px){
+  .nav-links{display:none}
+  .menu-btn{display:flex}
+}
+@media (max-width:640px){
+  .nav-inner{padding:0 16px;height:60px}
+  .nav-status{display:none}
+  .container{padding:0 16px}
+  .hero{padding:60px 20px 22px}
+  .hero-meta{gap:18px}
+  .hero-divider{height:30px}
+  .warning-banner{padding:16px}
+  .controls{padding:16px}
+  .search-row{flex-direction:column}
+  .search-box{min-width:0}
+  .expand-actions{width:100%}
+  .btn-ghost{flex:1;text-align:center}
+  .rule-header{padding:16px;gap:12px}
+  .rule-num{min-width:40px;height:40px;font-size:12px}
+  .rule-title{font-size:15px}
+  .rule-desc-wrap{padding:2px 16px 16px 16px}
+  .rule-desc{font-size:14px}
+  .final-notice{padding:20px 18px}
+  #backToTop{bottom:16px;right:16px;width:44px;height:44px}
+}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{animation:none;transition:none}
+  .reveal{opacity:1;transform:none}
+}
+</style>
+</head>
+<body>
+<div class="progress-track"><div id="progressBar" class="progress-bar"></div></div>
+<header class="nav">
+  <div class="nav-inner">
+    <a href="#top" class="brand" aria-label="Night Frame Studios - back to top">
+      <span class="brand-mark"><span class="brand-mark-inner"></span></span>
+      <span class="brand-text">NIGHT FRAME <span class="brand-light">STUDIOS</span></span>
+    </a>
+    <nav class="nav-links" aria-label="Rule categories">
+      <a href="#rules" data-navfilter="Gameplay">Gameplay</a>
+      <a href="#rules" data-navfilter="Security">Security</a>
+      <a href="#rules" data-navfilter="Conduct">Conduct</a>
+      <a href="#rules" data-navfilter="Studio">Studio</a>
+      <a href="#rules" data-navfilter="Fair Play">Fair Play</a>
+    </nav>
+    <div class="nav-right">
+      <span class="nav-status"><span class="status-dot"></span>Enforcement Active</span>
+      <button class="menu-btn" id="menuBtn" aria-label="Toggle menu" aria-expanded="false"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="#rules" data-navfilter="Gameplay">Gameplay <small>01</small></a>
+    <a href="#rules" data-navfilter="Security">Security <small>03</small></a>
+    <a href="#rules" data-navfilter="Conduct">Conduct <small>08</small></a>
+    <a href="#rules" data-navfilter="Studio">Studio <small>04</small></a>
+    <a href="#rules" data-navfilter="Fair Play">Fair Play <small>04</small></a>
+  </div>
+</header>
+<main id="top">
+  <section class="hero reveal">
+    <div class="hero-badge"><span class="pulse-dot"></span>Last updated — October 2026</div>
+    <h1>Server Rules</h1>
+    <p class="hero-sub">One page. Twenty rules. Zero excuses. Read everything below before you play — enforcement is strict, fast, and final.</p>
+    <div class="hero-meta">
+      <div class="hero-stat"><strong>20</strong><span>Rules</span></div>
+      <div class="hero-divider"></div>
+      <div class="hero-stat"><strong>05</strong><span>Categories</span></div>
+      <div class="hero-divider"></div>
+      <div class="hero-stat"><strong>00</strong><span>Tolerance for exploits</span></div>
+    </div>
+  </section>
+  <div class="container">
+    <div class="warning-banner reveal" role="alert">
+      <div class="warning-icon" aria-hidden="true">!</div>
+      <div>
+        <strong>Warning</strong>
+        <p>Ignorance of the rules is not an excuse. By playing, you agree to all rules below.</p>
+      </div>
+    </div>
+    <section class="controls reveal" id="rules-controls" aria-label="Search and filter rules">
+      <div class="search-row">
+        <div class="search-box">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>
+          <input id="searchInput" type="text" placeholder="Search rules by keyword, title, or punishment..." autocomplete="off" aria-label="Search rules">
+          <kbd>/</kbd>
+        </div>
+        <div class="expand-actions">
+          <button class="btn-ghost" id="expandAll">Expand all</button>
+          <button class="btn-ghost" id="collapseAll">Collapse all</button>
+        </div>
+      </div>
+      <div class="chips" id="chipRow" role="tablist" aria-label="Filter by category">
+        <button class="chip active" data-filter="All" role="tab" aria-selected="true">All <span class="chip-count">20</span></button>
+        <button class="chip" data-filter="Gameplay" role="tab" aria-selected="false">Gameplay <span class="chip-count">1</span></button>
+        <button class="chip" data-filter="Security" role="tab" aria-selected="false">Security <span class="chip-count">3</span></button>
+        <button class="chip" data-filter="Conduct" role="tab" aria-selected="false">Conduct <span class="chip-count">8</span></button>
+        <button class="chip" data-filter="Studio" role="tab" aria-selected="false">Studio <span class="chip-count">4</span></button>
+        <button class="chip" data-filter="Fair Play" role="tab" aria-selected="false">Fair Play <span class="chip-count">4</span></button>
+      </div>
+      <div class="results-meta">
+        <span id="resultCount">Showing 20 of 20 rules</span>
+        <button id="clearFilters" hidden>Clear filters</button>
+      </div>
+    </section>
+    <section class="rules" id="rules" aria-label="All server rules">
+      <article class="rule-card reveal open" data-category="Fair Play" id="rule-01">
+        <button class="rule-header" aria-expanded="true" aria-controls="body-01">
+          <span class="rule-num">01</span>
+          <span class="rule-main">
+            <span class="rule-title-row"><span class="rule-title">No Cheating</span></span>
+            <span class="rule-tags"><span class="tag tag-cat">Fair Play</span><span class="tag tag-red">PERMANENT BAN</span><span class="tag tag-grey">NO APPEAL</span></span>
+          </span>
+          <span class="chevron" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></span>
+        </button>
+        <div class="rule-body" id="body-01" role="region" aria-label="Rule 01 details">
+          <div class="rule-body-inner"><div class="rule-desc-wrap">
+            <p class="rule-desc">No exploits, executors, injectors, macros, auto-clickers, or mods of any kind. This includes speed, fly, teleport, and noclip. No warning, no appeal.</p>
+            <div class="rule-meta"><span>Rule 01 / 20</span><span class="dot-sep"></span><span>Fair Play</span></div>
+          </div></div>
+        </div>
+      </article>
+      <article class="rule-card reveal open" data-category="Fair Play" id="rule-02">
+        <button class="rule-header" aria-expanded="true" aria-controls="body-02">
+          <span class="rule-num">02</span>
+          <span class="rule-main">
+            <span class="rule-title-row"><span class="rule-title">Report Bugs, Don't Abuse Them</span></span>
+            <span class="rule-tags"><span class="tag tag-cat">Fair Play</span><span class="tag tag-red">PERMANENT BAN</span></span>
+          </span>
+          <span class="chevron" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></span>
+        </button>
+        <div class="rule-body" id="body-02" role="region" aria-label="Rule 02 details">
+          <div class="rule-body-inner"><div class="rule-desc-wrap">
+            <p class="rule-desc">Found a bug? Open a ticket right away. Using, hiding, sharing, or selling it counts as exploiting.</p>
+            <div class="rule-meta"><span>Rule 02 / 20</span><span class="dot-sep"></span><span>Fair Play</span></div>
+          </div></div>
+        </div>
+      </article>
+      <article class="rule-card reveal open" data-category="Security" id="rule-03">
+        <button class="rule-header" aria-expanded="true" aria-controls="body-03">
+          <span class="rule-num">03</span>
+          <span class="rule-main">
+            <span class="rule-title-row"><span class="rule-title">No Scams or Shady Deals</span></span>
+            <span class="rule-tags"><span class="tag tag-cat">Security</span><span class="tag tag-red">PERMANENT BAN</span></span>
+          </span>
+          <span class="chevron" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></span>
+        </button>
+        <div class="rule-body" id="body-03" role="region" aria-label="Rule 03 details">
+          <div class="rule-body-inner"><div class="rule-desc-wrap">
+            <p class="rule-desc">Scams, fake giveaways, phishing links, begging, and account selling or trading are not allowed. Robux and real-money deals outside official systems are also banned.</p>
+            <div class="rule-meta"><span>Rule 03 / 20</span><span class="dot-sep"></span><span>Security</span></div>
+          </div></div>
+        </div>
+      </article>
+      <article class="rule-card reveal open" data-category="Security" id="rule-04">
+        <button class="rule-header" aria-expanded="true" aria-controls="body-04">
+          <span class="rule-num">04</span>
+          <span class="rule-main">
+            <span class="rule-title-row"><span class="rule-title">Protect Your Account</span></span>
+            <span class="rule-tags"><span class="tag tag-cat">Security</span></span>
+          </span>
+          <span class="chevron" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></span>
+        </button>
+        <div class="rule-body" id="body-04" role="region" aria-label="Rule 04 details">
+          <div class="rule-body-inner"><div class="rule-desc-wrap">
+            <p class="rule-desc">Never share your password, cookie, or personal info. Staff will never ask for them. If your account gets compromised, that's on you.</p>
+            <div class="rule-meta"><span>Rule 04 / 20</span><span class="dot-sep"></span><span>Security</span></div>
+          </div></div>
+        </div>
+      </article>
+      <article class="rule-card reveal open" data-category="Security" id="rule-05">
+        <button class="rule-header" aria-expanded="true" aria-controls="body-05">
+          <span class="rule-num">05</span>
+          <span class="rule-main">
+            <span class="rule-title-row"><span class="rule-title">No Ban Evasion</span></span>
+            <span class="rule-tags"><span class="tag tag-cat">Security</span><span class="tag tag-red">PERMANENT BAN</span></span>
+          </span>
+          <span class="chevron" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></span>
+        </button>
+        <div class="rule-body" id="body-05" role="region" aria-label="Rule 05 details">
+          <div class="rule-body-inner"><div class="rule-desc-wrap">
+            <p class="rule-desc">Using an alt to dodge a ban, mute, or kick gets every linked account banned.</p>
+            <div class="rule-meta"><span>Rule 05 / 20</span><span class="dot-sep"></span><span>Security</span></div>
+          </div></div>
+        </div>
+      </article>
+      <article class="rule-card reveal open" data-category="Conduct" id="rule-06">
+        <button class="rule-header" aria-expanded="true" aria-controls="body-06">
+          <span class="rule-num">06</span>
+          <span class="rule-main">
+            <span class="rule-title-row"><span class="rule-title">Be Respectful</span></span>
+            <span class="rule-tags"><span class="tag tag-cat">Conduct</span><span class="tag tag-orange">MUTE / BAN</span></span>
+          </span>
+          <span class="chevron" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></span>
+        </button>
+        <div class="rule-body" id="body-06" role="region" aria-label="Rule 06 details">
+          <div class="rule-body-inner"><div class="rule-desc-wrap">
+            <p class="rule-desc">No insults, bullying, threats, discrimination, hate speech, doxxing, or targeted harassment, in-game or on Discord. Punishment depends on severity.</p>
+            <div class="rule-meta"><span>Rule 06 / 20</span><span class="dot-sep"></span><span>Conduct</span></div>
+          </div></div>
+        </div>
+      </article>
+      <article class="rule-card reveal open" data-category="Gameplay" id="rule-07">
+        <button class="rule-header" aria-expanded="true" aria-controls="body-07">
+          <span class="rule-num">07</span>
+          <span class="rule-main">
+            <span class="rule-title-row"><span class="rule-title">No Griefing</span></span>
+            <span class="rule-tags"><span class="tag tag-cat">Gameplay</span></span>
+          </span>
+          <span class="chevron" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></span>
+        </button>
+        <div class="rule-body" id="body-07" role="region" aria-label="Rule 07 details">
+          <div class="rule-body-inner"><div class="rule-desc-wrap">
+            <p class="rule-desc">Don't ruin rounds, troll, block or trap players, or work against your team.</p>
+            <div class="rule-meta"><span>Rule 07 / 20</span><span class="dot-sep"></span><span>Gameplay</span></div>
+          </div></div>
+        </div>
+      </article>
+      <article class="rule-card reveal open" data-category="Conduct" id="rule-08">
+        <button class="rule-header" aria-expanded="true" aria-controls="body-08">
+          <span class="rule-num">08</span>
+          <span class="rule-main">
+            <span class="rule-title-row"><span class="rule-title">No Filter Bypassing</span></span>
+            <span class="rule-tags"><span class="tag tag-cat">Conduct</span></span>
+          </span>
+          <span class="chevron" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></span>
+        </button>
+        <div class="rule-body" id="body-08" role="region" aria-label="Rule 08 details">
+          <div class="rule-body-inner"><div class="rule-desc-wrap">
+            <p class="rule-desc">Don't use coded words, symbols, or spacing tricks to get around the chat filter.</p>
+            <div class="rule-meta"><span>Rule 08 / 20</span><span class="dot-sep"></span><span>Conduct</span></div>
+          </div></div>
+        </div>
+      </article>
+      <article class="rule-card reveal open" data-category="Conduct" id="rule-09">
+        <button class="rule-header" aria-expanded="true" aria-controls="body-09">
+          <span class="rule-num">09</span>
+          <span class="rule-main">
+            <span class="rule-title-row"><span class="rule-title">No Impersonation</span></span>
+            <span class="rule-tags"><span class="tag tag-cat">Conduct</span><span class="tag tag-red">PERMANENT BAN</span></span>
+          </span>
+          <span class="chevron" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></span>
+        </button>
+        <div class="rule-body" id="body-09" role="region" aria-label="Rule 09 details">
+          <div class="rule-body-inner"><div class="rule-desc-wrap">
+            <p class="rule-desc">Don't pretend to be staff, developers, the owner, Night Frame Studios, Roblox, or another player.</p>
+            <div class="rule-meta"><span>Rule 09 / 20</span><span class="dot-sep"></span><span>Conduct</span></div>
+          </div></div>
+        </div>
+      </article>
+      <article class="rule-card reveal open" data-category="Conduct" id="rule-10">
+        <button class="rule-header" aria-expanded="true" aria-controls="body-10">
+          <span class="rule-num">10</span>
+          <span class="rule-main">
+            <span class="rule-title-row"><span class="rule-title">Follow Roblox Rules</span></span>
+            <span class="rule-tags"><span class="tag tag-cat">Conduct</span></span>
+          </span>
+          <span class="chevron" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></span>
+        </button>
+        <div class="rule-body" id="body-10" role="region" aria-label="Rule 10 details">
+          <div class="rule-body-inner"><div class="rule-desc-wrap">
+            <p class="rule-desc">You must follow the Roblox Terms of Use and Community Standards at all times.</p>
+            <div class="rule-meta"><span>Rule 10 / 20</span><span class="dot-sep"></span><span>Conduct</span></div>
+          </div></div>
+        </div>
+      </article>
+      <article class="rule-card reveal open" data-category="Conduct" id="rule-11">
+        <button class="rule-header" aria-expanded="true" aria-controls="body-11">
+          <span class="rule-num">11</span>
+          <span class="rule-main">
+            <span class="rule-title-row"><span class="rule-title">Staff Have the Final Say</span></span>
+            <span class="rule-tags"><span class="tag tag-cat">Conduct</span></span>
+          </span>
+          <span class="chevron" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></span>
+        </button>
+        <div class="rule-body" id="body-11" role="region" aria-label="Rule 11 details">
+          <div class="rule-body-inner"><div class="rule-desc-wrap">
+            <p class="rule-desc">Don't argue with staff, mini-mod, or call people out publicly. Open a ticket and bring evidence.</p>
+            <div class="rule-meta"><span>Rule 11 / 20</span><span class="dot-sep"></span><span>Conduct</span></div>
+          </div></div>
+        </div>
+      </article>
+      <article class="rule-card reveal open" data-category="Conduct" id="rule-12">
+        <button class="rule-header" aria-expanded="true" aria-controls="body-12">
+          <span class="rule-num">12</span>
+          <span class="rule-main">
+            <span class="rule-title-row"><span class="rule-title">No False Reports</span></span>
+            <span class="rule-tags"><span class="tag tag-cat">Conduct</span></span>
+          </span>
+          <span class="chevron" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></span>
+        </button>
+        <div class="rule-body" id="body-12" role="region" aria-label="Rule 12 details">
+          <div class="rule-body-inner"><div class="rule-desc-wrap">
+            <p class="rule-desc">Fake reports, fake evidence, and ticket abuse get the same punishment as the offense you reported.</p>
+            <div class="rule-meta"><span>Rule 12 / 20</span><span class="dot-sep"></span><span>Conduct</span></div>
+          </div></div>
+        </div>
+      </article>
+      <article class="rule-card reveal open" data-category="Studio" id="rule-13">
+        <button class="rule-header" aria-expanded="true" aria-controls="body-13">
+          <span class="rule-num">13</span>
+          <span class="rule-main">
+            <span class="rule-title-row"><span class="rule-title">No Leaks</span><span class="new-badge">NEW</span></span>
+            <span class="rule-tags"><span class="tag tag-cat">Studio</span><span class="tag tag-red">PERMANENT BAN</span></span>
+          </span>
+          <span class="chevron" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></span>
+        </button>
+        <div class="rule-body" id="body-13" role="region" aria-label="Rule 13 details">
+          <div class="rule-body-inner"><div class="rule-desc-wrap">
+            <p class="rule-desc">Leaking or sharing unreleased content, builds, assets, or private studio info is forbidden.</p>
+            <div class="rule-meta"><span>Rule 13 / 20</span><span class="dot-sep"></span><span>Studio</span></div>
+          </div></div>
+        </div>
+      </article>
+      <article class="rule-card reveal open" data-category="Studio" id="rule-14">
+        <button class="rule-header" aria-expanded="true" aria-controls="body-14">
+          <span class="rule-num">14</span>
+          <span class="rule-main">
+            <span class="rule-title-row"><span class="rule-title">No Stealing</span><span class="new-badge">NEW</span></span>
+            <span class="rule-tags"><span class="tag tag-cat">Studio</span><span class="tag tag-red">PERMANENT BAN</span></span>
+          </span>
+          <span class="chevron" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></span>
+        </button>
+        <div class="rule-body" id="body-14" role="region" aria-label="Rule 14 details">
+          <div class="rule-body-inner"><div class="rule-desc-wrap">
+            <p class="rule-desc">Copying, stealing, or redistributing our maps, models, scripts, or UI is forbidden, and so is helping someone else do it.</p>
+            <div class="rule-meta"><span>Rule 14 / 20</span><span class="dot-sep"></span><span>Studio</span></div>
+          </div></div>
+        </div>
+      </article>
+      <article class="rule-card reveal open" data-category="Studio" id="rule-15">
+        <button class="rule-header" aria-expanded="true" aria-controls="body-15">
+          <span class="rule-num">15</span>
+          <span class="rule-main">
+            <span class="rule-title-row"><span class="rule-title">No Purchase Abuse</span><span class="new-badge">NEW</span></span>
+            <span class="rule-tags"><span class="tag tag-cat">Studio</span><span class="tag tag-red">PERMANENT BAN</span></span>
+          </span>
+          <span class="chevron" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></span>
+        </button>
+        <div class="rule-body" id="body-15" role="region" aria-label="Rule 15 details">
+          <div class="rule-body-inner"><div class="rule-desc-wrap">
+            <p class="rule-desc">Refund abuse, chargebacks, and false payment disputes will get your items removed.</p>
+            <div class="rule-meta"><span>Rule 15 / 20</span><span class="dot-sep"></span><span>Studio</span></div>
+          </div></div>
+        </div>
+      </article>
+      <article class="rule-card reveal open" data-category="Fair Play" id="rule-16">
+        <button class="rule-header" aria-expanded="true" aria-controls="body-16">
+          <span class="rule-num">16</span>
+          <span class="rule-main">
+            <span class="rule-title-row"><span class="rule-title">No Win Trading</span></span>
+            <span class="rule-tags"><span class="tag tag-cat">Fair Play</span><span class="tag tag-red">PERMANENT BAN</span></span>
+          </span>
+          <span class="chevron" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></span>
+        </button>
+        <div class="rule-body" id="body-16" role="region" aria-label="Rule 16 details">
+          <div class="rule-body-inner"><div class="rule-desc-wrap">
+            <p class="rule-desc">Throwing matches, boosting accounts, or rigging rankings is forbidden. Everyone involved gets banned.</p>
+            <div class="rule-meta"><span>Rule 16 / 20</span><span class="dot-sep"></span><span>Fair Play</span></div>
+          </div></div>
+        </div>
+      </article>
+      <article class="rule-card reveal open" data-category="Fair Play" id="rule-17">
+        <button class="rule-header" aria-expanded="true" aria-controls="body-17">
+          <span class="rule-num">17</span>
+          <span class="rule-main">
+            <span class="rule-title-row"><span class="rule-title">No Reward Farming</span></span>
+            <span class="rule-tags"><span class="tag tag-cat">Fair Play</span><span class="tag tag-yellow">WARNING</span></span>
+          </span>
+          <span class="chevron" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></span>
+        </button>
+        <div class="rule-body" id="body-17" role="region" aria-label="Rule 17 details">
+          <div class="rule-body-inner"><div class="rule-desc-wrap">
+            <p class="rule-desc">AFK scripts, teaming up, or any unintended way of farming XP or currency is prohibited. Gains are reset, then repeat offenders are banned.</p>
+            <div class="rule-meta"><span>Rule 17 / 20</span><span class="dot-sep"></span><span>Fair Play</span></div>
+          </div></div>
+        </div>
+      </article>
+      <article class="rule-card reveal open" data-category="Conduct" id="rule-18">
+        <button class="rule-header" aria-expanded="true" aria-controls="body-18">
+          <span class="rule-num">18</span>
+          <span class="rule-main">
+            <span class="rule-title-row"><span class="rule-title">No Spam or Ads</span></span>
+            <span class="rule-tags"><span class="tag tag-cat">Conduct</span><span class="tag tag-orange">MUTE / BAN</span></span>
+          </span>
+          <span class="chevron" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></span>
+        </button>
+        <div class="rule-body" id="body-18" role="region" aria-label="Rule 18 details">
+          <div class="rule-body-inner"><div class="rule-desc-wrap">
+            <p class="rule-desc">No spam, excessive caps, or advertising other games, servers, groups, or socials. Mute first, ban for repeat offenses.</p>
+            <div class="rule-meta"><span>Rule 18 / 20</span><span class="dot-sep"></span><span>Conduct</span></div>
+          </div></div>
+        </div>
+      </article>
+      <article class="rule-card reveal open" data-category="Conduct" id="rule-19">
+        <button class="rule-header" aria-expanded="true" aria-controls="body-19">
+          <span class="rule-num">19</span>
+          <span class="rule-main">
+            <span class="rule-title-row"><span class="rule-title">Respect Staff and Devs</span></span>
+            <span class="rule-tags"><span class="tag tag-cat">Conduct</span><span class="tag tag-orange">MUTE / BAN</span></span>
+          </span>
+          <span class="chevron" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></span>
+        </button>
+        <div class="rule-body" id="body-19" role="region" aria-label="Rule 19 details">
+          <div class="rule-body-inner"><div class="rule-desc-wrap">
+            <p class="rule-desc">Don't insult, pressure, or repeatedly ping staff or developers, and don't demand punishments for others.</p>
+            <div class="rule-meta"><span>Rule 19 / 20</span><span class="dot-sep"></span><span>Conduct</span></div>
+          </div></div>
+        </div>
+      </article>
+      <article class="rule-card reveal open" data-category="Studio" id="rule-20">
+        <button class="rule-header" aria-expanded="true" aria-controls="body-20">
+          <span class="rule-num">20</span>
+          <span class="rule-main">
+            <span class="rule-title-row"><span class="rule-title">Spirit of the Rules</span></span>
+            <span class="rule-tags"><span class="tag tag-cat">Studio</span></span>
+          </span>
+          <span class="chevron" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></span>
+        </button>
+        <div class="rule-body" id="body-20" role="region" aria-label="Rule 20 details">
+          <div class="rule-body-inner"><div class="rule-desc-wrap">
+            <p class="rule-desc">Looking for loopholes, leaving mid-moderation to dodge punishment, or baiting others into breaking rules is forbidden. Staff judge by intent, not just wording.</p>
+            <div class="rule-meta"><span>Rule 20 / 20</span><span class="dot-sep"></span><span>Studio</span></div>
+          </div></div>
+        </div>
+      </article>
+    </section>
+    <div id="emptyState" hidden>
+      <div class="empty-icon" aria-hidden="true">∅</div>
+      <h3>No rules found</h3>
+      <p>Nothing matches your current search and filter. Try a different keyword or reset the filters.</p>
+      <button id="emptyClear">Clear search and filters</button>
+    </div>
+    <div class="final-notice reveal">
+      <div class="final-icon" aria-hidden="true">§</div>
+      <div>
+        <strong>Final Notice</strong>
+        <p><em>Staff may punish any behavior that breaks the spirit of the rules, even if it is not listed.</em></p>
+      </div>
+    </div>
+  </div>
+</main>
+<footer>
+  <div class="footer-inner">
+    <div class="footer-mark"><div class="footer-mark-inner"></div></div>
+    <div class="footer-brand">NIGHT FRAME STUDIOS</div>
+    <p class="footer-copy">© 2026 Night Frame Studios. All rights reserved.</p>
+    <p class="footer-note">Report with evidence through <strong>a ticket in our Discord.</strong></p>
+    <div class="footer-line"></div>
+    <p class="footer-small">SERVER RULES &nbsp;·&nbsp; VERSION 1.0 &nbsp;·&nbsp; ENFORCED IN-GAME AND ON DISCORD</p>
+  </div>
+</footer>
+<button id="backToTop" aria-label="Back to top">↑</button>
+<script>
+(function(){
+  'use strict';
+  var progressBar = document.getElementById('progressBar');
+  var backToTop = document.getElementById('backToTop');
+  var searchInput = document.getElementById('searchInput');
+  var chipRow = document.getElementById('chipRow');
+  var chips = Array.prototype.slice.call(document.querySelectorAll('.chip'));
+  var resultCount = document.getElementById('resultCount');
+  var clearBtn = document.getElementById('clearFilters');
+  var emptyState = document.getElementById('emptyState');
+  var emptyClear = document.getElementById('emptyClear');
+  var expandAllBtn = document.getElementById('expandAll');
+  var collapseAllBtn = document.getElementById('collapseAll');
+  var menuBtn = document.getElementById('menuBtn');
+  var mobileMenu = document.getElementById('mobileMenu');
+  var navFilterLinks = Array.prototype.slice.call(document.querySelectorAll('[data-navfilter]'));
+  var cards = Array.prototype.slice.call(document.querySelectorAll('.rule-card'));
+  var headers = Array.prototype.slice.call(document.querySelectorAll('.rule-header'));
+  function onScroll(){
+    var st = window.pageYOffset || document.documentElement.scrollTop || 0;
+    var h = document.documentElement.scrollHeight - window.innerHeight;
+    var pct = 0;
+    if(h > 0){ pct = (st / h) * 100; }
+    if(pct > 100){ pct = 100; }
+    if(progressBar){ progressBar.style.width = pct + '%'; }
+    if(backToTop){
+      if(st > 600){ backToTop.classList.add('show'); }
+      else{ backToTop.classList.remove('show'); }
+    }
+  }
+  window.addEventListener('scroll', onScroll, { passive:true });
+  window.addEventListener('resize', onScroll);
+  onScroll();
+  if(backToTop){
+    backToTop.addEventListener('click', function(){
+      window.scrollTo({ top:0, behavior:'smooth' });
+    });
+  }
+  var revealEls = Array.prototype.slice.call(document.querySelectorAll('.reveal'));
+  if('IntersectionObserver' in window){
+    var io = new IntersectionObserver(function(entries){
+      for(var i=0;i<entries.length;i++){
+        if(entries[i].isIntersecting){
+          entries[i].target.classList.add('visible');
+          io.unobserve(entries[i].target);
+        }
+      }
+    }, { threshold:0.06, rootMargin:'0px 0px -40px 0px' });
+    for(var r=0;r<revealEls.length;r++){ io.observe(revealEls[r]); }
+  } else {
+    for(var f=0;f<revealEls.length;f++){ revealEls[f].classList.add('visible'); }
+  }
+  function setCard(card, open){
+    if(open){ card.classList.add('open'); }
+    else{ card.classList.remove('open'); }
+    var btn = card.querySelector('.rule-header');
+    if(btn){ btn.setAttribute('aria-expanded', open ? 'true' : 'false'); }
+  }
+  for(var hI=0;hI<headers.length;hI++){
+    headers[hI].addEventListener('click', function(){
+      var card = this.closest('.rule-card');
+      if(card){ setCard(card, !card.classList.contains('open')); }
+    });
+  }
+  if(expandAllBtn){
+    expandAllBtn.addEventListener('click', function(){
+      for(var i=0;i<cards.length;i++){ setCard(cards[i], true); }
+    });
+  }
+  if(collapseAllBtn){
+    collapseAllBtn.addEventListener('click', function(){
+      for(var j=0;j<cards.length;j++){ setCard(cards[j], false); }
+    });
+  }
+  function getActiveFilter(){
+    var active = chipRow.querySelector('.chip.active');
+    return active ? active.getAttribute('data-filter') : 'All';
+  }
+  function setActiveChip(name){
+    for(var i=0;i<chips.length;i++){
+      var isActive = chips[i].getAttribute('data-filter') === name;
+      if(isActive){ chips[i].classList.add('active'); chips[i].setAttribute('aria-selected','true'); }
+      else{ chips[i].classList.remove('active'); chips[i].setAttribute('aria-selected','false'); }
+    }
+  }
+  function applyFilters(){
+    var q = searchInput.value.trim().toLowerCase();
+    var active = getActiveFilter();
+    var visible = 0;
+    for(var i=0;i<cards.length;i++){
+      var card = cards[i];
+      var cat = card.getAttribute('data-category') || '';
+      var titleEl = card.querySelector('.rule-title');
+      var descEl = card.querySelector('.rule-desc');
+      var tagsEl = card.querySelector('.rule-tags');
+      var hay = '';
+      if(titleEl){ hay += ' ' + titleEl.textContent; }
+      if(descEl){ hay += ' ' + descEl.textContent; }
+      if(tagsEl){ hay += ' ' + tagsEl.textContent; }
+      hay += ' ' + cat + ' ' + (card.id || '');
+      hay = hay.toLowerCase();
+      var matchCat = (active === 'All' || cat === active);
+      var matchQ = (q === '' || hay.indexOf(q) !== -1);
+      if(matchCat && matchQ){ card.style.display = ''; card.classList.add('visible'); visible++; }
+      else{ card.style.display = 'none'; }
+    }
+    if(resultCount){
+      var label = 'Showing ' + visible + ' of 20 rules';
+      if(active !== 'All'){ label += '  —  ' + active; }
+      if(q !== ''){ label += '  —  "' + searchInput.value.trim() + '"'; }
+      resultCount.textContent = label;
+    }
+    if(emptyState){
+      if(visible === 0){ emptyState.removeAttribute('hidden'); }
+      else{ emptyState.setAttribute('hidden',''); }
+    }
+    if(clearBtn){
+      if(q !== '' || active !== 'All'){ clearBtn.removeAttribute('hidden'); }
+      else{ clearBtn.setAttribute('hidden',''); }
+    }
+  }
+  function resetFilters(){
+    searchInput.value = '';
+    setActiveChip('All');
+    applyFilters();
+    searchInput.focus();
+  }
+  for(var c=0;c<chips.length;c++){
+    chips[c].addEventListener('click', function(){
+      setActiveChip(this.getAttribute('data-filter'));
+      applyFilters();
+    });
+  }
+  if(searchInput){
+    searchInput.addEventListener('input', applyFilters);
+  }
+  if(clearBtn){ clearBtn.addEventListener('click', resetFilters); }
+  if(emptyClear){ emptyClear.addEventListener('click', resetFilters); }
+  function scrollToRules(){
+    var target = document.getElementById('rules');
+    if(target){
+      if(target.scrollIntoView){ target.scrollIntoView({ behavior:'smooth', block:'start' }); }
+      else{ window.location.hash = '#rules'; }
+    }
+  }
+  for(var n=0;n<navFilterLinks.length;n++){
+    navFilterLinks[n].addEventListener('click', function(ev){
+      ev.preventDefault();
+      var name = this.getAttribute('data-navfilter');
+      setActiveChip(name);
+      applyFilters();
+      if(mobileMenu){ mobileMenu.classList.remove('open'); }
+      if(menuBtn){ menuBtn.classList.remove('active'); menuBtn.setAttribute('aria-expanded','false'); }
+      scrollToRules();
+    });
+  }
+  if(menuBtn && mobileMenu){
+    menuBtn.addEventListener('click', function(){
+      var isOpen = mobileMenu.classList.toggle('open');
+      menuBtn.classList.toggle('active', isOpen);
+      menuBtn.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+    });
+  }
+  document.addEventListener('keydown', function(e){
+    var tag = (document.activeElement && document.activeElement.tagName) ? document.activeElement.tagName.toLowerCase() : '';
+    if(e.key === '/' && tag !== 'input' && tag !== 'textarea'){
+      e.preventDefault();
+      searchInput.focus();
+    }
+    if(e.key === 'Escape' && document.activeElement === searchInput){
+      searchInput.blur();
+    }
+  });
+  applyFilters();
+})();
+</script>
+</body>
+</html>
